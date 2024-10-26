@@ -1,0 +1,25 @@
+apiVersion: apps/v1                 # Versión de la API para el recurso Deployment
+kind: Deployment                    # Tipo de recurso: Deployment
+metadata:
+  name: mi-deployment               # Nombre del Deployment
+  namespace: vallegrande            # Espacio de nombres en el que se creará el Deployment
+spec:
+  replicas: 3                       # Número de réplicas del pod
+  selector:
+    matchLabels:
+      app: mi-app                   # Selector para emparejar con los pods según la etiqueta
+  template:
+    metadata:
+      labels:
+        app: mi-app                 # Etiqueta asignada a los pods creados por este Deployment
+    spec:
+      containers:
+        - name: mi-contenedor       # Nombre del contenedor
+          image: marianayeli/openia    # Imagen Docker que usará el contenedor
+          resources:                # Configuración de recursos para el contenedor
+            requests:
+              cpu: "125m"           # CPU solicitada
+            limits:
+              cpu: "300m"           # Límite máximo de CPU permitido
+          ports:
+            - containerPort: 8085   # Puerto expuesto en el contenedor
